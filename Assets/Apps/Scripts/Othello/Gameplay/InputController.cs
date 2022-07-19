@@ -10,6 +10,9 @@ namespace Othello.Gameplay
 
         public bool isEnabled { get; set; }
 
+        private void Start() {
+            Enable();
+        }
         private void Update() {
             if (!isEnabled) {
                 return;
