@@ -27,5 +27,13 @@ namespace Othello.Gameplay
             SetSide(pieceSide);
             boardBlock.SetPiece(this);
         }
+
+        internal void Flip() {
+            if (PieceSide == PieceSide.White) {
+                SetSide(PieceSide.Black);
+            } else {
+                SetSide(PieceSide.White);
+            }
+        }
     }
 }

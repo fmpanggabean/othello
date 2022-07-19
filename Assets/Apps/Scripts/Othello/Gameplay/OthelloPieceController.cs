@@ -19,11 +19,13 @@ namespace Othello.Gameplay
             InputController.OnClickOnBoard += PutPiece;
         }
         private void Update() {
+            //testing
             if (Input.GetKeyDown(KeyCode.Alpha1)) {
                 PieceSide = PieceSide.White;
             } else if (Input.GetKeyDown(KeyCode.Alpha2)) {
                 PieceSide = PieceSide.Black;
             }
+            //testing
         }
 
         public void PutPiece(BoardBlock boardBlock) {
