@@ -30,18 +30,16 @@ namespace Othello.Gameplay
             //side check othello
         }
 
-        private void Flip(int first, int last, int y) {
-            for (int x=first; x<=last; x++) {
-                BoardBlock[y, x].OthelloPiece.Flip();
-            }
-        }
-
         private void SetBlocksPosition() {
             for (int y = 0; y < 8; y++) {
                 for (int x = 0; x < 8; x++) {
                     BoardBlock[y, x].SetPosition(x, y);
                 }
             }
+        }
+
+        internal bool IsValidMove(BoardBlock boardBlock) {
+
         }
 
         private void GenerateBoard() {

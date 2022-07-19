@@ -7,6 +7,7 @@ namespace Othello.Gameplay
     public class OthelloPieceController : MonoBehaviour
     {
         private InputController InputController => FindObjectOfType<InputController>();
+        private Board Board => FindObjectOfType<Board>();
 
         public GameObject othelloPiecePrefab;
 
@@ -32,8 +33,10 @@ namespace Othello.Gameplay
             if (boardBlock.OthelloPiece != null) {
                 return;
             }
-            OthelloPiece othelloPiece = Instantiate(othelloPiecePrefab, transform).GetComponent<OthelloPiece>();
-            othelloPiece.Place(boardBlock, PieceSide);
+            if (Board.IsValidMove(boardBlock)) {
+                OthelloPiece othelloPiece = Instantiate(othelloPiecePrefab, transform).GetComponent<OthelloPiece>();
+                othelloPiece.Place(boardBlock, PieceSide);
+            }
         }
     }
 }
