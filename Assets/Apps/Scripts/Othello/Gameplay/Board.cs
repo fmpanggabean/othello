@@ -39,7 +39,26 @@ namespace Othello.Gameplay
         }
 
         internal bool IsValidMove(BoardBlock boardBlock) {
+            List<BoardBlock> validBlocks = new List<BoardBlock>();
 
+            validBlocks = GetAllEmptyBlocks();
+
+            if (validBlocks.Contains(boardBlock)) {
+                return true;
+            }
+            return false;
+        }
+
+        private List<BoardBlock> GetAllEmptyBlocks() {
+            List<BoardBlock> items = new List<BoardBlock>();
+
+            foreach(BoardBlock bb in BoardBlock) {
+                if (bb.OthelloPiece == null) {
+                    items.Add(bb);
+                }
+            }
+
+            return items;
         }
 
         private void GenerateBoard() {
