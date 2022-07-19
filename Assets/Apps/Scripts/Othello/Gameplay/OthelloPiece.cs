@@ -13,9 +13,6 @@ namespace Othello.Gameplay
         public Animator Animator => GetComponentInChildren<Animator>();
         public PieceSide PieceSide { get; set; }
 
-        private void Start() {
-            SetSide(PieceSide.Black);
-        }
         public void SetSide(PieceSide pieceSide) {
             Animator.SetTrigger(pieceSide.ToString());
             PieceSide = pieceSide;
@@ -25,9 +22,9 @@ namespace Othello.Gameplay
             transform.position = boardBlock.GetPosition();
         }
 
-        internal void Place(BoardBlock boardBlock, PieceSide white) {
+        internal void Place(BoardBlock boardBlock, PieceSide pieceSide) {
             SetPosition(boardBlock);
-            SetSide(PieceSide.Black);
+            SetSide(pieceSide);
             boardBlock.SetPiece(this);
         }
     }

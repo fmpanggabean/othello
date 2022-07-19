@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Othello.Gameplay
-{
+namespace Othello.Gameplay {
     public class InputController : MonoBehaviour
     {
         public event Action<BoardBlock> OnClickOnBoard;

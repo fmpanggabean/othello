@@ -10,8 +10,20 @@ namespace Othello.Gameplay
 
         public GameObject othelloPiecePrefab;
 
+        //testing
+        private PieceSide PieceSide = PieceSide.White;
+        //
+
+
         private void Awake() {
             InputController.OnClickOnBoard += PutPiece;
+        }
+        private void Update() {
+            if (Input.GetKeyDown(KeyCode.Alpha1)) {
+                PieceSide = PieceSide.White;
+            } else if (Input.GetKeyDown(KeyCode.Alpha2)) {
+                PieceSide = PieceSide.Black;
+            }
         }
 
         public void PutPiece(BoardBlock boardBlock) {
@@ -19,7 +31,7 @@ namespace Othello.Gameplay
                 return;
             }
             OthelloPiece othelloPiece = Instantiate(othelloPiecePrefab, transform).GetComponent<OthelloPiece>();
-            othelloPiece.Place(boardBlock, PieceSide.White);
+            othelloPiece.Place(boardBlock, PieceSide);
         }
     }
 }
