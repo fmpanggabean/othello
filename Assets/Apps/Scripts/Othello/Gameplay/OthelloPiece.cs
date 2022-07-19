@@ -4,18 +4,20 @@ using UnityEngine;
 
 namespace Othello.Gameplay
 {
+    public enum PieceSide {
+        Black, White
+    }
     public class OthelloPiece : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+        public Animator Animator => GetComponentInChildren<Animator>();
+        public PieceSide PieceSide { get; set; }
 
-        // Update is called once per frame
-        void Update()
-        {
-        
+        private void Start() {
+            SetSide(PieceSide.Black);
+        }
+        public void SetSide(PieceSide pieceSide) {
+            Animator.SetTrigger(pieceSide.ToString());
+            PieceSide = pieceSide;
         }
     }
 }
