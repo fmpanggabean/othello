@@ -28,6 +28,40 @@ namespace Othello.Gameplay
         private void BoardCheck(int x, int y) {
             PieceSide side = BoardBlock[y, x].OthelloPiece.PieceSide;
             //side check othello
+            Check(x + 1, y, 1, 0, side);
+            Check(x - 1, y, -1, 0, side);
+            Check(x, y + 1, 0, 1, side);
+            Check(x, y - 1, 0, -1, side);
+            Check(x + 1, y + 1, 1, 1, side);
+            Check(x + 1, y - 1, 1, -1, side);
+            Check(x - 1, y + 1, -1, 1, side);
+            Check(x - 1, y - 1, -1, -1, side);
+        }
+
+        private void Check(int x, int y, int xDir, int ydir, PieceSide side) {
+            Stack<OthelloPiece> pieces = new Stack<OthelloPiece>();
+
+            for (int i=x, j=y; i>=0 && i<8 && j>=0 && j<8; i+= xDir, j+=ydir) {
+                if (BoardBlock[j,i].OthelloPiece == null) {
+                    return;
+                } 
+                if (BoardBlock[j, i].OthelloPiece.PieceSide != side) {
+                    pieces.Push(BoardBlock[j, i].OthelloPiece);
+                } else if (BoardBlock[j, i].OthelloPiece.PieceSide == side) {
+                    pieces.Push(BoardBlock[j, i].OthelloPiece);
+                    break;
+                }
+            }
+
+            if (pieces.Count == 0) {
+                return;
+            }
+            if (pieces.Peek().PieceSide == side) {
+                pieces.Pop();
+                foreach (OthelloPiece piece in pieces) {
+                    piece.Flip();
+                }
+            }
         }
 
         private void SetBlocksPosition() {
