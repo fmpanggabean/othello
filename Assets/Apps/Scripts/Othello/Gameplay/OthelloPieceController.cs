@@ -33,7 +33,7 @@ namespace Othello.Gameplay
             if (boardBlock.OthelloPiece != null) {
                 return;
             }
-            if (Board.IsValidMove(boardBlock)) {
+            if (Board.IsValidMove(boardBlock, PieceSide)) {
                 OthelloPiece op = GeneratePiece();
                 op.Place(boardBlock, PieceSide);
             }
