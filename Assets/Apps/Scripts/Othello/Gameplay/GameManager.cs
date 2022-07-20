@@ -9,6 +9,8 @@ namespace Othello.Gameplay
     {
         private OthelloPieceController OthelloPieceController => FindObjectOfType<OthelloPieceController>();
 
+        public event Action<WinInfo> OnGameOver;
+
         private void Awake() {
             OthelloPieceController.OnPiecePlaced += NextTurn;
             OthelloPieceController.OnGameOver += GameOver;
@@ -37,9 +39,10 @@ namespace Othello.Gameplay
         }
 
         private void GameOver(Board board) {
-            int whiteCount = board.GetPieceCount(PieceSide.White);
-            int blackCount = board.GetPieceCount(PieceSide.Black);
-            Debug.LogFormat("White: {0}     Black: {1}", whiteCount, blackCount);
+            WinInfo winInfo = new WinInfo();
+
+            winInfo.SetScore(board.GetPieceCount(PieceSide.White), board.GetPieceCount(PieceSide.Black));
+            OnGameOver?.Invoke(winInfo);
         }
     }
 }
