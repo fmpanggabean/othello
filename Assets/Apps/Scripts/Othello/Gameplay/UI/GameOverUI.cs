@@ -16,7 +16,7 @@ namespace Othello.Gameplay
         [SerializeField] private TMP_Text blackText;
 
         private void Awake() {
-            GameManager.OnGameOver += ShowGameOver;
+            GameManager.OnGameOver_WinInfo += ShowGameOver;
         }
         private void Start() {
             window.SetActive(false);

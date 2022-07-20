@@ -15,7 +15,7 @@ namespace Othello.Gameplay
         public event Action OnPiecePlaced;
         public event Action<PieceSide> OnNoValidMove;
         public event Action<Board> OnGameOver;
-
+        public event Action<PieceSide> OnTurnChanged;
 
         private void Awake() {
             InputController.OnClickOnBoard += PutPiece;
@@ -50,6 +50,7 @@ namespace Othello.Gameplay
             if (PieceSide == PieceSide.White) {
                 if (SideHasValidMove(PieceSide.Black)) {
                     PieceSide = PieceSide.Black;
+                    OnTurnChanged?.Invoke(PieceSide);
                 } else {
                     Debug.Log("Black has no valid move!");
                     OnNoValidMove?.Invoke(PieceSide.Black);
@@ -57,6 +58,7 @@ namespace Othello.Gameplay
             } else {
                 if (SideHasValidMove(PieceSide.White)) {
                     PieceSide = PieceSide.White;
+                    OnTurnChanged?.Invoke(PieceSide);
                 } else {
                     Debug.Log("White has no valid move!");
                     OnNoValidMove?.Invoke(PieceSide.White);
