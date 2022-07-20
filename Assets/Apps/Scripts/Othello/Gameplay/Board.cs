@@ -46,6 +46,28 @@ namespace Othello.Gameplay
             return othelloPieces;
         }
 
+        internal int GetPieceCount(PieceSide pieceSide) {
+            int count = 0;
+            foreach(BoardBlock blocks in BoardBlock) {
+                if (blocks.OthelloPiece == null) {
+                    continue;
+                }
+                if (blocks.OthelloPiece.PieceSide == pieceSide) {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        internal bool HasValidMove(PieceSide side) {
+            foreach(BoardBlock boardBlocks in GetAllEmptyBlocks()) {
+                if (GetAllFlippablePieces(boardBlocks.position.x, boardBlocks.position.y, side).Count > 0) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void FlipPieces(List<OthelloPiece> othelloPieces) {
             if (othelloPieces == null) {
                 return;
