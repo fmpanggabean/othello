@@ -34,9 +34,19 @@ namespace Othello.Gameplay
                 return;
             }
             if (Board.IsValidMove(boardBlock)) {
-                OthelloPiece othelloPiece = Instantiate(othelloPiecePrefab, transform).GetComponent<OthelloPiece>();
-                othelloPiece.Place(boardBlock, PieceSide);
+                OthelloPiece op = GeneratePiece();
+                op.Place(boardBlock, PieceSide);
             }
+        }
+        public void PutInitialPiece(int x, int y, PieceSide pieceSide) {
+            BoardBlock boardBlock = Board.GetBlock(x, y);
+            OthelloPiece othelloPiece = GeneratePiece();
+            othelloPiece.Place(boardBlock, pieceSide);
+        }
+        private OthelloPiece GeneratePiece() {
+            OthelloPiece othelloPiece = Instantiate(othelloPiecePrefab, transform).GetComponent<OthelloPiece>();
+
+            return othelloPiece;
         }
     }
 }

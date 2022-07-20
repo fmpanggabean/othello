@@ -49,6 +49,10 @@ namespace Othello.Gameplay
             return false;
         }
 
+        internal BoardBlock GetBlock(int x, int y) {
+            return BoardBlock[y, x];
+        }
+
         private List<BoardBlock> GetAllEmptyBlocks() {
             List<BoardBlock> items = new List<BoardBlock>();
 
