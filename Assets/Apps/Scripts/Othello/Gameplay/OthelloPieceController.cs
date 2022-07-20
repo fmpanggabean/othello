@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,9 +11,10 @@ namespace Othello.Gameplay
 
         public GameObject othelloPiecePrefab;
 
-        //testing
-        private PieceSide PieceSide = PieceSide.White;
-        //
+        public PieceSide PieceSide { get; set; }
+        public event Action OnPiecePlaced;
+        public event Action<PieceSide> OnNoValidMove;
+        public event Action<Board> OnGameOver;
 
 
         private void Awake() {
@@ -36,8 +37,40 @@ namespace Othello.Gameplay
             if (Board.IsValidMove(boardBlock, PieceSide)) {
                 OthelloPiece op = GeneratePiece();
                 op.Place(boardBlock, PieceSide);
+                OnPiecePlaced?.Invoke();
             }
         }
+
+        internal void NextTurn() {
+            if (!Board.HasValidMove(PieceSide.Black) && !Board.HasValidMove(PieceSide.White) ) {
+                Debug.Log("Game Over");
+                OnGameOver?.Invoke(Board);
+                return;
+            }
+            if (PieceSide == PieceSide.White) {
+                if (SideHasValidMove(PieceSide.Black)) {
+                    PieceSide = PieceSide.Black;
+                } else {
+                    Debug.Log("Black has no valid move!");
+                    OnNoValidMove?.Invoke(PieceSide.Black);
+                }
+            } else {
+                if (SideHasValidMove(PieceSide.White)) {
+                    PieceSide = PieceSide.White;
+                } else {
+                    Debug.Log("White has no valid move!");
+                    OnNoValidMove?.Invoke(PieceSide.White);
+                }
+            }
+        }
+
+        private bool SideHasValidMove(PieceSide side) {
+            if (Board.HasValidMove(side)) {
+                return true;
+            }
+            return false;
+        }
+
         public void PutInitialPiece(int x, int y, PieceSide pieceSide) {
             BoardBlock boardBlock = Board.GetBlock(x, y);
             OthelloPiece othelloPiece = GeneratePiece();
