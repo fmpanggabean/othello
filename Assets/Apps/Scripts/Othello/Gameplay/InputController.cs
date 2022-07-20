@@ -4,10 +4,14 @@ using UnityEngine;
 namespace Othello.Gameplay {
     public class InputController : MonoBehaviour
     {
+        private GameManager GameManager => FindObjectOfType<GameManager>();
         public event Action<BoardBlock> OnClickOnBoard;
 
         public bool isEnabled { get; set; }
 
+        private void Awake() {
+            GameManager.OnGameOver += Disable;
+        }
         private void Start() {
             Enable();
         }
